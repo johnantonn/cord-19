@@ -20,6 +20,7 @@ if __name__ == "__main__":
     json_files = get_subfolders_and_files(args.input_folder, "json")
     json_processor_obj = JSONProcessor()
     for json_file in json_files:
+        print("JSON file %s is being processed..." % json_file)
         output_file = str(json_file).replace(args.input_folder, args.output_folder)
         json_data = read_json_file(json_file)
         json_data_converted = json_processor_obj\
