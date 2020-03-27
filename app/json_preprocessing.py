@@ -1,7 +1,11 @@
 """ This module contains code to provide the preprocessing of raw json files. """
 
 import sys
+import os
 import argparse
+from pathlib import Path
+CURRENT_DIR = os.path.dirname(__file__)
+sys.path.append(str(Path(Path(CURRENT_DIR).parents[0])))
 from preprocessing.JSONProcessor import JSONProcessor
 from util.util_functions import *
 
