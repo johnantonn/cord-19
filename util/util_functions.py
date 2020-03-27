@@ -38,7 +38,7 @@ def write_json_to_file(json_data, filepath):
         if not os.path.exists(os.path.dirname(filepath)):
             os.makedirs(os.path.dirname(filepath))
         with open(filepath, 'w') as json_file:
-            json.dump(json_data, json_file)
+            json.dump(json_data, json_file, indent=4)
     except TypeError:
         return None
 
