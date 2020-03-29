@@ -7,7 +7,6 @@
 from elasticsearch_dsl import Index, connections, analyzer, tokenizer
 import json
 import os
-import csv
 
 # Default connection and Elasticsearch client
 connections.create_connection()
