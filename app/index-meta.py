@@ -18,7 +18,7 @@ my_analyzer = analyzer('my_analyzer',
                        )
 
 # Index
-i = Index('meta')
+i = Index('metadata')
 i.analyzer(my_analyzer)
 i.create()
 
@@ -26,7 +26,7 @@ i.create()
 count = 0
 metaProps = []
 metaDoc = {}
-with open('metadata.csv', newline='', encoding='utf-8') as csvfile:
+with open('metadata_with_new_dates.csv', newline='', encoding='utf-8') as csvfile:
     spamreader = csv.reader(csvfile, delimiter=',')
     for row in spamreader:
         count += 1
@@ -34,9 +34,9 @@ with open('metadata.csv', newline='', encoding='utf-8') as csvfile:
             # create json
             for col in row:
                 metaDoc[metaProps[row.index(col)]] = col
-            # index json
-                es.index(index="meta", id=count-1, body=metaDoc)
-            print('Indexing document id:', count-1)
+                # index json
+                es.index(index="metadata", id=count-1, body=metaDoc)
+                print('Indexing document id:', count-1)
         else:
             # create json schema
             metaProps = row
