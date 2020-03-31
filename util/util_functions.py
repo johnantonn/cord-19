@@ -2,6 +2,7 @@
 
 import json
 import os
+import pandas as pd
 from pathlib import Path
 
 
@@ -43,7 +44,7 @@ def write_json_to_file(json_data, filepath):
         return None
 
 
-def get_subfolders_and_files(input_folder, file_type):
+def get_files_based_on_type(input_folder, file_type):
     """ Function that returns the subdirectories of a given folder
     and the files of the given type.
 
@@ -60,3 +61,39 @@ def get_subfolders_and_files(input_folder, file_type):
         json_files.append(path.absolute())
 
     return json_files
+
+
+def read_csv_file(filepath):
+    """ Function that reads a csv file and returns a pandas data frame.
+
+    Args:
+        filepath (str): The path of the json file
+
+    Returns:
+        (pandas.DataFrame): The data frame with the contents of the csv file
+    """
+
+    try:
+        if not os.path.exists(filepath):
+            raise FileNotFoundError("filepath %s does not exist" % filepath)
+
+        file_content = pd.read_csv(filepath)
+    except TypeError:
+        return None
+
+    return file_content
+
+
+def write_csv_to_file(csv_data, filepath):
+    """ Function that writes a pandas data frame to a csv file.
+
+    Args:
+        csv_data (pandas.DataFrame): The input pandas data frame
+        filepath (str): The filepath of the new file
+    """
+    try:
+        if not os.path.exists(os.path.dirname(filepath)):
+            os.makedirs(os.path.dirname(filepath))
+        csv_data.to_csv(filepath, encoding='utf-8', index=False)
+    except TypeError:
+        return None

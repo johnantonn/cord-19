@@ -1,4 +1,4 @@
-""" This module contains closses that preprocess the data. """
+""" This module contains classes that preprocess the data. """
 
 
 class JSONProcessor:
@@ -27,5 +27,30 @@ class JSONProcessor:
                 value[internal_key] = key
                 list_of_dicts.append(value)
             json_input[dictionary_to_convert["external_key"]] = list_of_dicts
+
+        return json_input
+
+    def convert_list_to_dictionaries(self, json_input, lists_to_convert):
+        """ Function that converts lists of objects to dictionaries and adds them to new key-value.
+
+        Args:
+            json_input (dict): The input json
+            lists_to_convert: A list with all the lists to make them dictionaries
+
+        Returns:
+            (dict): The converted json
+        """
+
+        for list_to_convert in lists_to_convert:
+            list_data = json_input[list_to_convert["external_key"]]
+            if type(list_data) != list:
+                continue
+
+            internal_key = list_to_convert["internal_key"]
+            new_external_key = list_to_convert["new_external_key"]
+            dictionary = dict()
+            for i in range(len(list_data)):
+                dictionary[new_external_key + str(i)] = list_data[i]
+            json_input[list_to_convert["new_external_key"]] = dictionary
 
         return json_input

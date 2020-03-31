@@ -21,7 +21,7 @@ if __name__ == "__main__":
         print("Wrong number of given arguments")
         sys.exit(1)
 
-    json_files = get_subfolders_and_files(args.input_folder, "json")
+    json_files = get_files_based_on_type(args.input_folder, "json")
     json_processor_obj = JSONProcessor()
     for json_file in json_files:
         print("JSON file %s is being processed..." % json_file)
@@ -31,4 +31,10 @@ if __name__ == "__main__":
             .convert_dictionaries_to_list(json_data,
                                           [{"external_key": "bib_entries", "internal_key": "id"},
                                            {"external_key": "ref_entries", "internal_key": "id"}])
+        json_data_converted = json_processor_obj\
+            .convert_list_to_dictionaries(json_data_converted,
+                                          [{"external_key": "body_text",
+                                            "internal_key": "text",
+                                            "new_external_key": "paragraphs",
+                                            "new_internal_key": "paragraph"}])
         write_json_to_file(json_data_converted, output_file)
