@@ -7,7 +7,6 @@
 from elasticsearch_dsl import Index, connections, analyzer, tokenizer
 import json
 import os
-import csv
 
 # Default connection and Elasticsearch client
 connections.create_connection()
@@ -26,7 +25,7 @@ i.analyzer(my_analyzer)
 i.create()
 
 # Indexing
-outputDir = '..\output'
+outputDir = 'output'
 count = 0
 for filename in os.listdir(outputDir):
     if filename.endswith(".json"):
