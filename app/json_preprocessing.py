@@ -31,10 +31,4 @@ if __name__ == "__main__":
             .convert_dictionaries_to_list(json_data,
                                           [{"external_key": "bib_entries", "internal_key": "id"},
                                            {"external_key": "ref_entries", "internal_key": "id"}])
-        json_data_converted = json_processor_obj\
-            .convert_list_to_dictionaries(json_data_converted,
-                                          [{"external_key": "body_text",
-                                            "internal_key": "text",
-                                            "new_external_key": "paragraphs",
-                                            "new_internal_key": "paragraph"}])
         write_json_to_file(json_data_converted, output_file)

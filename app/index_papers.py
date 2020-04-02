@@ -4,7 +4,7 @@
     and placed in output directory
   - Elasticsearch server must be up 'n' running
 """
-from elasticsearch_dsl import Index, connections, analyzer, tokenizer
+from elasticsearch_dsl import Index, connections, analyzer, tokenizer, Mapping
 import json
 import os
 
@@ -19,13 +19,16 @@ my_analyzer = analyzer('my_analyzer',
                        filter=['lowercase']
                        )
 
+m = Mapping.from_es('first_draft', using='default')
+
 # Index
-i = Index('papers')
+i = Index('new_draft')
 i.analyzer(my_analyzer)
+i.mapping(m)
 i.create()
 
 # Indexing
-outputDir = 'output'
+outputDir = 'E:/COVID-19_test/'
 count = 0
 for filename in os.listdir(outputDir):
     if filename.endswith(".json"):
@@ -37,12 +40,8 @@ for filename in os.listdir(outputDir):
             # load into json object
             doc = json.loads(data)
             # index to Elasticsearch
-            es.index(index="papers", id=count, body=doc)
+            es.index(index="new_draft", id=doc["paper_id"], body=doc)
             print('Indexing document id:', count)
             myfile.close()
     else:
         continue
-
-# Simple match query
-sr = es.search(index="papers", body={"query": {"match_all": {}}})
-print("Got %d hits" % sr['hits']['total']['value'])
