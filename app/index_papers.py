@@ -1,6 +1,6 @@
 """
   Elasticsearch client for:
-    - index creation with custom mapping
+    - papers index creation with custom mapping
     - indexing of papers
   Prerequisites:
     - elasticsearch server must be up 'n' running
@@ -135,7 +135,7 @@ if not index_exists:
 else:
     print('Index', indexName, 'already exists, skipping creation.')
 
-# Index documents
+# Index paper json documents
 inputDir = 'data/processed'
 count = 0
 for filename in os.listdir(inputDir):
@@ -149,7 +149,7 @@ for filename in os.listdir(inputDir):
             doc = json.loads(data)
             # index to Elasticsearch
             es.index(index=indexName, id=doc["paper_id"], body=doc)
-            print('Indexing document id:', count)
+            print('Indexed document, counter:', count)
             myfile.close()
     else:
         continue
