@@ -24,8 +24,11 @@ index_exists = i.exists()
 
 if not index_exists:
     # Define analyzer
-    my_analyzer = analyzer('my_analyzer', tokenizer=tokenizer(
-        'trigram', 'nGram', min_gram=3, max_gram=3), filter=['lowercase'])
+    my_analyzer = analyzer(
+        'my_analyzer',
+        type="standard",
+        stopwords='_english_'
+    )
 
     # Define mapping
     m = Mapping()
