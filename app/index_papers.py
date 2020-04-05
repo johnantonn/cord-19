@@ -138,19 +138,20 @@ else:
 # Index paper json documents
 inputDir = 'data/processed'
 count = 0
-for filename in os.listdir(inputDir):
-    if filename.endswith(".json"):
-        # increment counter
-        count += 1
-        # read file
-        with open(os.path.join(inputDir, filename), 'r') as myfile:
-            data = myfile.read()
-            # load into json object
-            doc = json.loads(data)
-            # index to Elasticsearch
-            es.index(index=indexName, id=doc["paper_id"], body=doc)
-            print('Indexed document, counter:', count)
-            myfile.close()
+for path, subdirs, files in os.walk(inputDir):
+    for name in files:
+        if name.endswith(".json"):
+            # increment counter
+            count += 1
+            # read file
+            with open(os.path.join(path, name), 'r') as myfile:
+                data = myfile.read()
+                # load into json object
+                doc = json.loads(data)
+                # index to Elasticsearch
+                es.index(index=indexName, id=doc["paper_id"], body=doc)
+                print('Indexed document, counter:', count)
+                myfile.close()
     else:
         continue
 
