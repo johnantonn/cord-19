@@ -15,8 +15,7 @@ The code is developed with Python 3.8 while the major dependency packages includ
 
 The dataset is composed of scientific paper articles related to the covid-19 disease and is provided by the respective [Kaggle competition dataset](https://www.kaggle.com/allen-institute-for-ai/CORD-19-research-challenge). More specifically, the dataset includes:
  - Metadata entries in a single `csv` file.
- 
- - Full paper `json` documents.
+ - Full papers in separate `json` documents.
  
 # Steps
 
